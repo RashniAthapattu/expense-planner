@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ExpenseController } from './controller/expense/expense.controller';
@@ -8,7 +7,7 @@ import { ExpensesService } from './service/expense/expense.service';
 import { EarningsService } from './service/earnings/earnings.service';
 import { EarningController } from './controller/earnings/earnings.controller';
 import { EarningSchema } from './schema/earnings.schema';
-
+import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017', {

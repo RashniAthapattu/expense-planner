@@ -9,9 +9,9 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { CreateEarningDto } from 'src/dto/create-earning.dto';
-import { UpdateEarningDto } from 'src/dto/update-earning.dto';
-import { EarningsService } from 'src/service/earnings/earnings.service';
+import { CreateEarningDto } from '@server/dto/create-earning.dto';
+import { UpdateEarningDto } from '@server/dto/update-earning.dto';
+import { EarningsService } from '@server/service/earnings/earnings.service';
 
 @Controller('earning')
 export class EarningController {
@@ -19,7 +19,7 @@ export class EarningController {
 
   @Post()
   async createEarning(
-    @Res() response,
+    @Res() response: any,
     @Body() createEarningDto: CreateEarningDto,
   ) {
     try {
@@ -40,7 +40,7 @@ export class EarningController {
 
   @Put('/:id')
   async updateEarning(
-    @Res() response,
+    @Res() response: any,
     @Param('id') earningId: string,
     @Body() updateEarningDto: UpdateEarningDto,
   ) {
@@ -59,7 +59,7 @@ export class EarningController {
   }
 
   @Get()
-  async getEarnings(@Res() response) {
+  async getEarnings(@Res() response: any) {
     try {
       const earningData = await this.earningService.getAllEarnings();
       return response.status(HttpStatus.OK).json({
@@ -72,7 +72,7 @@ export class EarningController {
   }
 
   @Get('/:id')
-  async getEarning(@Res() response, @Param('id') earningId: string) {
+  async getEarning(@Res() response: any, @Param('id') earningId: string) {
     try {
       const existingEarning = await this.earningService.getEarning(earningId);
       return response.status(HttpStatus.OK).json({
@@ -85,7 +85,7 @@ export class EarningController {
   }
 
   @Delete('/:id')
-  async deleteEarning(@Res() response, @Param('id') earningId: string) {
+  async deleteEarning(@Res() response: any, @Param('id') earningId: string) {
     try {
       const deletedEarning = await this.earningService.deleteEarning(earningId);
       return response.status(HttpStatus.OK).json({
