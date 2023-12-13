@@ -1,12 +1,12 @@
 import React from 'react'
 import ExpenseItem from './ExpenseItem';
+import { fetchEarning } from '../services/earning.service';
+import { ExpensesData } from '../interfaces/expenses';
+import { fetchExpenses } from '../services/expenses.service';
 
-const ExpenseList = () => {
-    const expenses = [
-		{ id: 12, name: 'shopping', cost: 40 },
-		{ id: 13, name: 'holiday', cost: 400 },
-		{ id: 14, name: 'car service', cost: 50 },
-	];
+export default async function ExpenseList (){
+	const expensesData: Promise<ExpensesData> = fetchExpenses();
+	const expenses = await expensesData;
     return (
 		<ul className='list-group'>
 			{expenses.map((expense) => (
@@ -15,5 +15,3 @@ const ExpenseList = () => {
 		</ul>
     )
 }
-
-export default ExpenseList

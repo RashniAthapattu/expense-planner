@@ -9,9 +9,9 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { CreateEarningDto } from '@server/dto/create-earning.dto';
-import { UpdateEarningDto } from '@server/dto/update-earning.dto';
-import { EarningsService } from '@server/service/earnings/earnings.service';
+import { CreateEarningDto } from './dto/create-earning.dto';
+import { UpdateEarningDto } from './dto/update-earning.dto';
+import { EarningsService } from './earnings.service';
 
 @Controller('earning')
 export class EarningController {

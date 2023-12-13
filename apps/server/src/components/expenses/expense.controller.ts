@@ -9,15 +9,15 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { CreateExpenseDto } from '@server/dto/create-expense.dto';
-import { UpdateExpenseDto } from '@server/dto/update-expense.dto';
-import { ExpensesService } from '@server/service/expense/expense.service';
+import { CreateExpenseDto } from './dto/create-expense.dto';
+import { UpdateExpenseDto } from './dto/update-expense.dto';
+import { ExpensesService } from './expense.service';
 
 @Controller('expense')
 export class ExpenseController {
   constructor(private readonly expenseService: ExpensesService) {}
 
-  @Post()
+  @Post('/addAmount')
   async createExpense(
     @Res() response: any,
     @Body() createExpenseDto: CreateExpenseDto,

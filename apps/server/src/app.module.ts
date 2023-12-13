@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ExpenseController } from './controller/expense/expense.controller';
-import { ExpenseSchema } from './schema/expense.schema';
-import { ExpensesService } from './service/expense/expense.service';
-import { EarningsService } from './service/earnings/earnings.service';
-import { EarningController } from './controller/earnings/earnings.controller';
-import { EarningSchema } from './schema/earnings.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ExpenseSchema } from './components/expenses/expense.schema';
+import { EarningSchema } from './components/earnings/earnings.schema';
+import { EarningController } from './components/earnings/earnings.controller';
+import { EarningsService } from './components/earnings/earnings.service';
+import { ExpenseController } from './components/expenses/expense.controller';
+import { ExpensesService } from './components/expenses/expense.service';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017', {

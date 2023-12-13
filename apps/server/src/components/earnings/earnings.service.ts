@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateEarningDto } from '@server/dto/create-earning.dto';
-import { UpdateEarningDto } from '@server/dto/update-earning.dto';
-import { IEarning } from '@server/interface/earning.interface';
 import { Model } from 'mongoose';
+import { IEarning } from './earning.interface';
+import { CreateEarningDto } from './dto/create-earning.dto';
+import { UpdateEarningDto } from './dto/update-earning.dto';
 @Injectable()
 export class EarningsService {
   constructor(@InjectModel('Earning') private earningModel: Model<IEarning>) {}

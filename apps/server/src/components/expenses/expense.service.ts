@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateExpenseDto } from '@server/dto/create-expense.dto';
-import { UpdateExpenseDto } from '@server/dto/update-expense.dto';
-import { IExpense } from '@server/interface/expense.interface';
+
 import { Model } from 'mongoose';
+import { IExpense } from './expense.interface';
+import { CreateExpenseDto } from './dto/create-expense.dto';
+import { UpdateExpenseDto } from './dto/update-expense.dto';
 
 @Injectable()
 export class ExpensesService {
