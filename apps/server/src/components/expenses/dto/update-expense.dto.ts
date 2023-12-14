@@ -1,4 +1,4 @@
-import { IsDateString, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateExpenseDto } from './create-expense.dto';
 export class UpdateExpenseDto extends PartialType(CreateExpenseDto) {
@@ -6,15 +6,15 @@ export class UpdateExpenseDto extends PartialType(CreateExpenseDto) {
   @IsNotEmpty()
   readonly description: string;
 
-  @IsDateString()
-  @IsNotEmpty()
-  readonly date: Date;
+  // @IsDateString()
+  // @IsNotEmpty()
+  // readonly date: Date;
 
   @IsNumber()
   @IsNotEmpty()
   readonly amount: number;
 
-  @IsString()
-  @IsNotEmpty()
-  readonly category: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // readonly category: string;
 }

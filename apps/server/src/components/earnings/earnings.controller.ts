@@ -17,7 +17,7 @@ import { EarningsService } from './earnings.service';
 export class EarningController {
   constructor(private readonly earningService: EarningsService) {}
 
-  @Post()
+  @Post('/addAmount')
   async createEarning(
     @Res() response: any,
     @Body() createEarningDto: CreateEarningDto,

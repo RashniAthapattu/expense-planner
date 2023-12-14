@@ -2,8 +2,9 @@ import Budget from "../components/Budget";
 import Remaining from "../components/Remaining";
 import ExpenseTotal from "../components/ExpenseTotal";
 import ExpenseList from "../components/ExpenseList";
-import AddExpenseForm from "../components/AddExpenseForm";
 import "bootstrap/dist/css/bootstrap.min.css";
+import EarningList from "../components/EarningList";
+import AddAmountForm from "../components/AddAmountForm";
 
 export default function Home() {
   return (
@@ -20,10 +21,10 @@ export default function Home() {
           <Remaining />
         </div>
       </div>
-	  <h3 className="mt-3">Add Expense</h3>
+      <h3 className="mt-3">Add Amount</h3>
       <div className="row mt-3">
         <div className="col-sm">
-          <AddExpenseForm />
+          <AddAmountForm />
         </div>
       </div>
       <h3 className="mt-3">Expenses</h3>
@@ -32,7 +33,12 @@ export default function Home() {
           <ExpenseList />
         </div>
       </div>
-     
+      <h3 className="mt-3">Earnings</h3>
+      <div className="row mt-3">
+        <div className="col-sm">
+          <EarningList />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,19 +1,15 @@
 import React from "react";
 import { TiDelete } from "react-icons/ti";
-import { ExpensesData } from "../interfaces/expenses";
-import { fetchExpenses } from "../services/expenses.service";
+import { Expense } from "../interfaces/expenses";
 
-export default async function ExpenseItem() {
-  const expensesData: Promise<ExpensesData> = fetchExpenses();
-  const expenses = await expensesData;
+export default async function ExpenseItem(props: Expense) {
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
-      { expenses.expenseData.map}
+      {props.description}
       <div>
-        <label className="mr-3">{props.cost} LKR</label>
+        <label className="mr-3">{props.amount} LKR</label>
         <TiDelete size="1.5em"></TiDelete>
       </div>
     </li>
   );
 }
-
