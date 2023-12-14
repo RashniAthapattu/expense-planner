@@ -5,6 +5,7 @@ import { fetchExpenses } from "../services/expenses.service";
 import { fetchEarning } from "../services/earning.service";
 import { EarningsData } from "../interfaces/earnings";
 import { addAmount } from "../services/addAmount.service";
+// import { useRouter } from "next/router";
 
 interface DropdownProps {
   onSelectChange: (selectedValue: string) => void;
@@ -13,8 +14,10 @@ interface DropdownProps {
 export default function AddAmountForm() {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(1);
-  const [type, setType] = useState("expense");
+  const [type, setType] = useState("expenses");
 
+  // const router = useRouter();
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const submitData = { description, amount, type };
@@ -26,6 +29,7 @@ export default function AddAmountForm() {
       const res = await AmountData;
       console.log(res);
       if (res.ok) {
+        // router.reload();
         if (submitData.type === "earning") {
           const earningData: Promise<EarningsData> = fetchEarning();
           const earnings = await earningData;
@@ -41,14 +45,14 @@ export default function AddAmountForm() {
     }
     setDescription("");
     setAmount(0);
-    setType("expense");
+    setType("expenses");
   };
 
-  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const newValue = event.target.value;
-  //   setType(newValue);
-  //   onSelectChange(newValue);
-  // };
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newValue = event.target.value;
+    setType(newValue);
+    console.log(type);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -78,18 +82,18 @@ export default function AddAmountForm() {
           ></input>
         </div>
       </div>
-      {/* <div className="row mt-3">
+      <div className="row mt-3">
         <div className="col-sm">
           <label htmlFor="expenseType">Select Type:</label>
           <select id="expenseType" value={type} onChange={handleSelectChange}>
+          <option value="expenses">Expenses</option>
             <option value="earnings">Earnings</option>
-            <option value="expenses">Expenses</option>
           </select>
         </div>
-      </div> */}
+      </div>
       <div className="row">
         <div className="col-sm">
-          <button type="submit" className="btn btn-primary mt-3">
+          <button type="submit" className="btn btn-outline-primary mt-3">
             Save
           </button>
         </div>
