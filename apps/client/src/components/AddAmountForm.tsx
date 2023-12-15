@@ -1,12 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ExpensesData } from "../interfaces/expenses";
 import { fetchExpenses } from "../services/expenses.service";
 import { fetchEarning } from "../services/earning.service";
 import { EarningsData } from "../interfaces/earnings";
 import { addAmount } from "../services/addAmount.service";
-// import { useRouter } from "next/router";
-
 interface DropdownProps {
   onSelectChange: (selectedValue: string) => void;
 }
@@ -14,44 +12,38 @@ interface DropdownProps {
 export default function AddAmountForm() {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(1);
-  const [type, setType] = useState("expenses");
+  const [type, setType] = useState("expense");
 
-  // const router = useRouter();
-  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const submitData = { description, amount, type };
     const finalData = { description, amount };
 
     try {
-      console.log(submitData);
+      console.log(submitData.type, "submitData.type");
       const AmountData: Promise<any> = addAmount(submitData.type, finalData);
       const res = await AmountData;
-      console.log(res);
-      if (res.ok) {
-        // router.reload();
-        if (submitData.type === "earning") {
-          const earningData: Promise<EarningsData> = fetchEarning();
-          const earnings = await earningData;
-        } else {
-          const expensesData: Promise<ExpensesData> = fetchExpenses();
-          const expenses = await expensesData;
-        }
-      } else {
-        console.log("Oops! Something is wrong.");
+      console.log(res.message, "this is res");
+      if (res.message === "Earning has been created successfully") {
+        const earningData: Promise<EarningsData> = fetchEarning();
+        const earnings = await earningData;
+      } else if (res.message === "Expense has been created successfully") {
+        const expensesData: Promise<ExpensesData> = fetchExpenses();
+        const expenses = await expensesData;
       }
     } catch (error) {
-      console.log(error);
+      console.log(error, "error");
     }
     setDescription("");
     setAmount(0);
-    setType("expenses");
+    setType("");
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
+    console.log(newValue);
     setType(newValue);
-    console.log(type);
+    console.log(event.target.value);
   };
 
   return (
@@ -86,8 +78,10 @@ export default function AddAmountForm() {
         <div className="col-sm">
           <label htmlFor="expenseType">Select Type:</label>
           <select id="expenseType" value={type} onChange={handleSelectChange}>
-          <option value="expenses">Expenses</option>
-            <option value="earnings">Earnings</option>
+            <option selected value="expense">
+              Expenses
+            </option>
+            <option value="earning">Earnings</option>
           </select>
         </div>
       </div>
