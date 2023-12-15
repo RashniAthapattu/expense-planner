@@ -20,10 +20,8 @@ export default function AddAmountForm() {
     const finalData = { description, amount };
 
     try {
-      console.log(submitData.type, "submitData.type");
       const AmountData: Promise<any> = addAmount(submitData.type, finalData);
       const res = await AmountData;
-      console.log(res.message, "this is res");
       if (res.message === "Earning has been created successfully") {
         const earningData: Promise<EarningsData> = fetchEarning();
         const earnings = await earningData;
@@ -41,9 +39,7 @@ export default function AddAmountForm() {
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
-    console.log(newValue);
     setType(newValue);
-    console.log(event.target.value);
   };
 
   return (

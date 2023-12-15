@@ -28,10 +28,8 @@ export default function EarningItem(props: Earning) {
     const submitData = { description, amount, type, id };
 
     try {
-      console.log(submitData, "this is submitData");
       const UpdateAmountData: Promise<any> = updateAmount(submitData);
       const res = await UpdateAmountData;
-      console.log(res.message, "this is res");
       if (res.message === "Earning has been successfully updated") {
         const earningData: Promise<EarningsData> = fetchEarning();
         const earnings = await earningData;
@@ -53,10 +51,8 @@ export default function EarningItem(props: Earning) {
     const submitData = { description, amount, type, id };
 
     try {
-      console.log(submitData, "this is submitData");
       const DeleteAmountData: Promise<any> = deleteAmount(submitData);
       const res = await DeleteAmountData;
-      console.log(res.message, "this is res");
       if (res.message === "Earning deleted successfully") {
         const earningData: Promise<EarningsData> = fetchEarning();
         const earnings = await earningData;
