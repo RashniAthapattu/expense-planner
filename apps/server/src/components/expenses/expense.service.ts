@@ -31,9 +31,6 @@ export class ExpensesService {
   }
   async getAllExpenses(): Promise<IExpense[]> {
     const expenseData = await this.expenseModel.find();
-    if (!expenseData || expenseData.length == 0) {
-      throw new NotFoundException('Expenses data not found!');
-    }
     return expenseData;
   }
   async getExpense(expenseId: string): Promise<IExpense> {

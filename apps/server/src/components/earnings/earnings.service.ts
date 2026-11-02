@@ -28,9 +28,6 @@ export class EarningsService {
   }
   async getAllEarnings(): Promise<IEarning[]> {
     const earningData = await this.earningModel.find();
-    if (!earningData || earningData.length == 0) {
-      throw new NotFoundException('Earnings data not found!');
-    }
     return earningData;
   }
   async getEarning(earningId: string): Promise<IEarning> {
