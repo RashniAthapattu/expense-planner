@@ -1,55 +1,41 @@
 "use client";
 import { useState } from "react";
-import { ExpensesData } from "../interfaces/expenses";
-import { fetchExpenses } from "../services/expenses.service";
-import { fetchEarning } from "../services/earning.service";
-import { EarningsData } from "../interfaces/earnings";
+import { useRouter } from "next/navigation";
 import { addAmount } from "../services/addAmount.service";
-interface DropdownProps {
-  onSelectChange: (selectedValue: string) => void;
-}
+import { AmountType } from "../interfaces/addAmounts";
 
 export default function AddAmountForm() {
+  const router = useRouter();
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(1);
-  const [type, setType] = useState("expense");
+  const [type, setType] = useState<AmountType>("expense");
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const submitData = { description, amount, type };
-    const finalData = { description, amount };
+    setError(null);
 
     try {
-      const AmountData: Promise<any> = addAmount(submitData.type, finalData);
-      const res = await AmountData;
-      if (res.message === "Earning has been created successfully") {
-        const earningData: Promise<EarningsData> = fetchEarning();
-        const earnings = await earningData;
-      } else if (res.message === "Expense has been created successfully") {
-        const expensesData: Promise<ExpensesData> = fetchExpenses();
-        const expenses = await expensesData;
-      }
-    } catch (error) {
-      console.log(error, "error");
+      await addAmount(type, { description, amount });
+      setDescription("");
+      setAmount(1);
+      // Re-render the server components so the totals and lists update
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      setError("Could not save the entry. Please try again.");
     }
-    setDescription("");
-    setAmount(0);
-    setType("");
-  };
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setType(newValue);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="row">
         <div className="col-sm">
-          <label htmlFor="name">Description</label>
+          <label htmlFor="description">Description</label>
           <input
             required
             type="text"
+            id="description"
             name="description"
             value={description}
             placeholder="Enter the description"
@@ -63,24 +49,29 @@ export default function AddAmountForm() {
           <input
             required
             type="number"
+            min={1}
+            id="amount"
             name="amount"
             value={amount}
             placeholder="Enter the amount"
-            onChange={(e) => setAmount(parseInt(e.target.value))}
+            onChange={(e) => setAmount(Number(e.target.value))}
           ></input>
         </div>
       </div>
       <div className="row mt-3">
         <div className="col-sm">
-          <label htmlFor="expenseType">Select Type:</label>
-          <select id="expenseType" value={type} onChange={handleSelectChange}>
-            <option selected value="expense">
-              Expenses
-            </option>
+          <label htmlFor="amountType">Select Type:</label>
+          <select
+            id="amountType"
+            value={type}
+            onChange={(e) => setType(e.target.value as AmountType)}
+          >
+            <option value="expense">Expenses</option>
             <option value="earning">Earnings</option>
           </select>
         </div>
       </div>
+      {error && <div className="alert alert-danger mt-3">{error}</div>}
       <div className="row">
         <div className="col-sm">
           <button type="submit" className="btn btn-outline-primary mt-3">

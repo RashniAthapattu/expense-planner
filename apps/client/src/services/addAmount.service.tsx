@@ -1,12 +1,17 @@
-export async function addAmount(type: string, finalData: any) {
+import { API_URL } from "../config";
+import { AmountType } from "../interfaces/addAmounts";
 
-const res = await fetch(`http://localhost:4000/${type}/addAmount`, {
-  method: "POST",
-  body: JSON.stringify(finalData),
-  headers: {
-    "content-type": "application/json",
-  },
-});
-if (!res.ok) throw new Error('failed to fetch data');
-return res.json();
+export async function addAmount(
+  type: AmountType,
+  data: { description: string; amount: number }
+) {
+  const res = await fetch(`${API_URL}/${type}/addAmount`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+  if (!res.ok) throw new Error("Failed to add amount");
+  return res.json();
 }
