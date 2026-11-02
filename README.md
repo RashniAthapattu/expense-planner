@@ -87,8 +87,3 @@ This starts both apps at once:
 ```bash
 pnpm test
 ```
-
-## Author
-
-**Rashni Athapattu**, Full-Stack Software Engineer, Stockholm
-[GitHub](https://github.com/RashniAthapattu)
