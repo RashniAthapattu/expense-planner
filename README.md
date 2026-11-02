@@ -10,7 +10,8 @@ You add money coming in (earnings) and money going out (expenses), and the dashb
 - **Add** an earning or an expense from one form
 - **Edit and delete** entries through pop-up dialogs
 - **REST API** with separate modules for expenses and earnings (create, read, update, delete)
-- **Input validation** on the API with DTOs and `class-validator`
+- **Input validation** on the API with DTOs, `class-validator` and a global `ValidationPipe`
+- **Unit tests** for the services and controllers with Jest, using mocked Mongoose models
 - **Server and client components** in the Next.js App Router: totals are fetched on the server, and forms run on the client
 
 ## Tech stack
@@ -20,6 +21,7 @@ You add money coming in (earnings) and money going out (expenses), and the dashb
 | Frontend | Next.js 14 (App Router), React, TypeScript, Bootstrap, Tailwind CSS |
 | Backend  | NestJS, TypeScript, Mongoose, class-validator |
 | Database | MongoDB |
+| Testing  | Jest, @nestjs/testing |
 | Tooling  | pnpm workspaces, ESLint, Prettier |
 
 ## Project structure
@@ -53,10 +55,19 @@ Both resources have the same endpoints. Replace `expense` with `earning` for ear
 ### Requirements
 
 - Node.js 18 or newer
-- pnpm (`npm install -g pnpm`)
-- MongoDB running locally on `mongodb://localhost:27017`
+- pnpm 8 (run `corepack enable` and the right version is picked up from `package.json`)
+- MongoDB, either running locally or a free MongoDB Atlas cluster
 
-### Run it
+### 1. Set up environment variables
+
+```bash
+cp apps/server/.env.example apps/server/.env   # MONGODB_URI, MONGODB_DB_NAME, PORT
+cp apps/client/.env.example apps/client/.env   # NEXT_PUBLIC_API_URL
+```
+
+The defaults work with a local MongoDB on `mongodb://localhost:27017`.
+
+### 2. Install and run
 
 ```bash
 pnpm install
@@ -67,6 +78,12 @@ This starts both apps at once:
 
 - API: `http://localhost:4000`
 - Web app: `http://localhost:3000`
+
+### Run the tests
+
+```bash
+pnpm test
+```
 
 ## Author
 
