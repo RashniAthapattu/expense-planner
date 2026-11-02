@@ -1,6 +1,8 @@
+import { AmountType } from "./addAmounts";
+
 export interface IUpdateAmounts {
-    description?: string;
-    amount?: number;
-    type: string;
-    id?: string;
-    }
+  id: string;
+  type: AmountType;
+  description: string;
+  amount: number;
+}

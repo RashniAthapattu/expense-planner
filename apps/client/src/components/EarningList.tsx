@@ -1,20 +1,19 @@
 import React from "react";
+import AmountItem from "./AmountItem";
 import { EarningsData } from "../interfaces/earnings";
 import { fetchEarning } from "../services/earning.service";
-import EarningItem from "./EarningItem";
 
 export default async function EarningList() {
-  const EarningsData: Promise<EarningsData> = fetchEarning();
-  const earnings = await EarningsData;
+  const earnings: EarningsData = await fetchEarning();
   return (
     <ul className="list-group">
       {earnings.earningData.map((earning) => (
-        <EarningItem
+        <AmountItem
           key={earning._id}
+          id={earning._id}
+          type="earning"
           description={earning.description}
           amount={earning.amount}
-          _id={earning._id}
-          __v={0}
         />
       ))}
     </ul>

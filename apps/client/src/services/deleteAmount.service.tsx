@@ -1,11 +1,10 @@
+import { API_URL } from "../config";
 import { IDeleteAmounts } from "../interfaces/deleteAmounts";
 
-export async function deleteAmount(data:IDeleteAmounts) {
-  await fetch(`http://localhost:4000/${data.type}/${data.id}`, {
+export async function deleteAmount({ type, id }: IDeleteAmounts) {
+  const res = await fetch(`${API_URL}/${type}/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ data}),
-  })
+  });
+  if (!res.ok) throw new Error("Failed to delete amount");
+  return res.json();
 }
